@@ -60,7 +60,9 @@ async function createWatermark({ dataUrl, width, height }) {
 
 /**
  * 根据 ctx 计算水印的文字颜色和阴影颜色
- * @param {canvas context} ctx
+ * @param ctx canvas 上下文
+ * @param width
+ * @param height
  */
 function getFontColor(ctx, width, height) {
   const imgData = ctx.getImageData(0, height * 0.9, width, height * 0.1)
@@ -79,7 +81,7 @@ function getFontColor(ctx, width, height) {
   if (isCloseWhite) {
     return {
       color: `#fff`,
-      shadowColor: `#111`
+      shadowColor: `#000`
     }
   } else {
     return {
@@ -93,24 +95,21 @@ function getFontColor(ctx, width, height) {
  * 根据 image element, 获取图像的大小
  */
 async function getImageSize(imageElement) {
-  let width = 0
-  let height = 0
-
+  // 等待图片渲染完成
   await new Promise((resolve) => {
     if (imageElement.complete) {
-      width = imageElement.naturalWidth
-      height = imageElement.naturalHeight
       resolve()
     } else {
       imageElement.onload = () => {
-        width = imageElement.naturalWidth
-        height = imageElement.naturalHeight
         resolve()
       }
     }
   })
 
-  return { width, height }
+  return {
+    width: imageElement.naturalWidth,
+    height: imageElement.naturalHeight
+  }
 }
 
 export { createWatermark }

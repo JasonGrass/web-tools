@@ -1,6 +1,9 @@
 import React, { memo, useEffect, useRef, useState } from "react"
-import { createWatermark } from "./helper"
+
 import { useClipboardImage } from "../../tools/useClipboardImage"
+import { useDragImage } from "../../tools/useDragImage"
+import { createWatermark } from "./helper"
+import Style from "./style"
 
 const Watermark = memo(() => {
   const [originImgDataUrl, setOriginImgDataUrl] = useState("")
@@ -9,7 +12,13 @@ const Watermark = memo(() => {
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
 
+  const dragAreaRef = useRef()
+
   useClipboardImage((image) => {
+    setOriginImgDataUrl(image)
+  })
+
+  useDragImage(dragAreaRef, (image) => {
     setOriginImgDataUrl(image)
   })
 
@@ -44,7 +53,9 @@ const Watermark = memo(() => {
   }
 
   return (
-    <div>
+    <Style>
+      <div className="image-drag-area" ref={dragAreaRef}></div>
+
       <h2>上传图片</h2>
       <h2>
         Size: {imgWidth} x {imgHeight}
@@ -73,7 +84,7 @@ const Watermark = memo(() => {
           style={{ maxWidth: 800 }}
         />
       </div>
-    </div>
+    </Style>
   )
 })
 

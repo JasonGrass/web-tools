@@ -7,7 +7,13 @@ module.exports = {
   trailingComma: "none",
   bracketSpacing: true,
   bracketSameLine: true,
-  importOrder: ["^~(.*)$", "^[./]"],
+  importOrder: [
+    "^react(.*)",
+    "antd/(.*)",
+    "<THIRD_PARTY_MODULES> ",
+    "@/(.*)",
+    "^[./]"
+  ],
   importOrderSeparation: true,
-  importOrderSortSpecifiers: true,
-};
+  importOrderSortSpecifiers: true
+}
