@@ -1,5 +1,5 @@
-async function createWatermark({ dataUrl, width, height }) {
-  console.log("createWatermark params", dataUrl, width, height)
+async function createWatermark({ dataUrl, width, height, text }) {
+  //  console.log("createWatermark params", dataUrl, width, height, text)
 
   const originImgElement = document.createElement("img")
   originImgElement.src = dataUrl
@@ -30,7 +30,7 @@ async function createWatermark({ dataUrl, width, height }) {
 
     // 文字大小
     const fontSize = width * 0.02
-    const text = "https://developer.mozilla.org/zh-CN/docs/Web/CSS/font"
+    // const text = "https://developer.mozilla.org/zh-CN/docs/Web/CSS/font"
     ctx.fillStyle = color
     ctx.textBaseline = "middle"
     // 添加文字阴影

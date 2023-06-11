@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react"
 
-import { useClipboardImage } from "../../tools/useClipboardImage"
-import { useDragImage } from "../../tools/useDragImage"
+import ImageInput from "../../components/image-input/ImageInput"
 import { createWatermark } from "./helper"
 import Style from "./style"
 
@@ -9,79 +8,84 @@ const Watermark = memo(() => {
   const [originImgDataUrl, setOriginImgDataUrl] = useState("")
   const [watermarkImgDataUrl, setWatermarkImgDataUrl] = useState("")
 
+  const [watermark, setWatermark] = useState("")
+
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
 
-  const dragAreaRef = useRef()
-
-  useClipboardImage((image) => {
-    setOriginImgDataUrl(image)
-  })
-
-  useDragImage(dragAreaRef, (image) => {
-    setOriginImgDataUrl(image)
-  })
-
-  async function onFileInput(e) {
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      setOriginImgDataUrl(reader.result)
-    }
+  function onInputImageChanged(dataUrl) {
+    setOriginImgDataUrl(dataUrl)
   }
 
   function onOriginImageLoaded(e) {
     const img = e.target
     setImgWidth(img.naturalWidth)
     setImgHeight(img.naturalHeight)
-    //     addWatermark(originImgDataUrl, img.naturalWidth, img.naturalHeight)
-    addWatermark(originImgDataUrl)
+    createWatermarkImage(
+      originImgDataUrl,
+      img.naturalWidth,
+      img.naturalHeight,
+      watermark
+    )
   }
 
   function onWatermarkImageLoaded(e) {
     URL.revokeObjectURL(watermarkImgDataUrl)
   }
 
-  async function addWatermark(dataUrl, width, height) {
+  function onWatermarkTextChanged(e) {
+    const text = e.target.value
+    setWatermark(text)
+    createWatermarkImage(originImgDataUrl, imgWidth, imgHeight, text)
+  }
+
+  async function createWatermarkImage(dataUrl, width, height, text) {
+    if (!text || text.trim() === "") {
+      return
+    }
+    if (width < 0 || height < 0) {
+      return
+    }
     const { url } = await createWatermark({
       dataUrl,
       width,
-      height
+      height,
+      text
     })
     setWatermarkImgDataUrl(url)
   }
 
   return (
     <Style>
-      <div className="image-drag-area" ref={dragAreaRef}></div>
+      <ImageInput onImageChanged={onInputImageChanged}></ImageInput>
 
-      <h2>上传图片</h2>
-      <h2>
-        Size: {imgWidth} x {imgHeight}
-      </h2>
+      <div className="image-infos">
+        <div className="image-info-box">
+          <span>
+            Size: {imgWidth} x {imgHeight}
+          </span>
+          <input
+            type="text"
+            value={watermark}
+            onChange={(e) => onWatermarkTextChanged(e)}
+            placeholder="watermark text"></input>
+        </div>
+      </div>
 
-      <input type="file" id="fileInput" onChange={(e) => onFileInput(e)} />
-
-      <div>
+      <div className="image-container">
         <img
           src={originImgDataUrl}
           alt="origin image"
           onLoad={(e) => {
             onOriginImageLoaded(e)
           }}
-          style={{ maxWidth: 800 }}
         />
-      </div>
-
-      <div>
         <img
           src={watermarkImgDataUrl}
           alt="watermark image"
           onLoad={(e) => {
             onWatermarkImageLoaded(e)
           }}
-          style={{ maxWidth: 800 }}
         />
       </div>
     </Style>
