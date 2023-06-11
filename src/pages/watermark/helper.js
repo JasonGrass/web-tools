@@ -25,10 +25,20 @@ async function createWatermark({ dataUrl, width, height }) {
     const ctx = canvas.getContext("2d")
     ctx.drawImage(originImgElement, 0, 0)
 
-    // 添加水印
-    ctx.fillStyle = "red"
+    // 计算水印颜色
+    const { color, shadowColor } = getFontColor(ctx, width, height)
+
+    // 文字大小
+    const fontSize = width * 0.02
+    const text = "https://developer.mozilla.org/zh-CN/docs/Web/CSS/font"
+    ctx.fillStyle = color
     ctx.textBaseline = "middle"
-    ctx.fillText("123 123 123", 20, 20)
+    // 添加文字阴影
+    ctx.shadowColor = shadowColor
+    ctx.shadowBlur = 5
+    // 设置水印文字大小
+    ctx.font = `${fontSize}px sans-serif`
+    ctx.fillText(text, width * 0.01, height - fontSize - 2)
 
     resolve(canvas)
   })
@@ -48,6 +58,40 @@ async function createWatermark({ dataUrl, width, height }) {
   }
 }
 
+/**
+ * 根据 ctx 计算水印的文字颜色和阴影颜色
+ * @param {canvas context} ctx
+ */
+function getFontColor(ctx, width, height) {
+  const imgData = ctx.getImageData(0, height * 0.9, width, height * 0.1)
+  const data = imgData.data
+  const r = data[0]
+  const g = data[1]
+  const b = data[2]
+
+  // const avgColor = `rgba(${r}, ${g}, ${b})`
+  // 计算 r g b 颜色的反色
+  // const reverseColor = `rgba(${255 - r}, ${255 - g}, ${255 - b})`
+
+  // 判断颜色是否接近白色
+  const isCloseWhite = (r + g + b) / 3 > 200
+
+  if (isCloseWhite) {
+    return {
+      color: `#fff`,
+      shadowColor: `#111`
+    }
+  } else {
+    return {
+      color: `#000`,
+      shadowColor: `#fff`
+    }
+  }
+}
+
+/**
+ * 根据 image element, 获取图像的大小
+ */
 async function getImageSize(imageElement) {
   let width = 0
   let height = 0

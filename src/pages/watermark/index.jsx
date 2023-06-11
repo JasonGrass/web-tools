@@ -1,5 +1,6 @@
-import React, { memo, useRef, useState } from "react"
+import React, { memo, useEffect, useRef, useState } from "react"
 import { createWatermark } from "./helper"
+import { useClipboardImage } from "../../tools/useClipboardImage"
 
 const Watermark = memo(() => {
   const [originImgDataUrl, setOriginImgDataUrl] = useState("")
@@ -7,6 +8,10 @@ const Watermark = memo(() => {
 
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
+
+  useClipboardImage((image) => {
+    setOriginImgDataUrl(image)
+  })
 
   async function onFileInput(e) {
     const file = e.target.files[0]
@@ -30,17 +35,12 @@ const Watermark = memo(() => {
   }
 
   async function addWatermark(dataUrl, width, height) {
-    try {
-      const { url } = await createWatermark({
-        dataUrl,
-        width,
-        height
-      })
-      setWatermarkImgDataUrl(url)
-    } catch (error) {
-      console.log("xxxxxxxxxxxxxx")
-      console.log(error)
-    }
+    const { url } = await createWatermark({
+      dataUrl,
+      width,
+      height
+    })
+    setWatermarkImgDataUrl(url)
   }
 
   return (
