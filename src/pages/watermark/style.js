@@ -33,6 +33,7 @@ const Style = styled.div`
 
     & img {
       max-height: 600px;
+      max-width: 48%;
     }
   }
 `
