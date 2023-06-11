@@ -73,20 +73,25 @@ const Watermark = memo(() => {
       </div>
 
       <div className="image-container">
-        <img
-          src={originImgDataUrl}
-          alt="origin image"
-          onLoad={(e) => {
-            onOriginImageLoaded(e)
-          }}
-        />
-        <img
-          src={watermarkImgDataUrl}
-          alt="watermark image"
-          onLoad={(e) => {
-            onWatermarkImageLoaded(e)
-          }}
-        />
+        {originImgDataUrl === "" ? null : (
+          <img
+            src={originImgDataUrl}
+            alt="origin image"
+            onLoad={(e) => {
+              onOriginImageLoaded(e)
+            }}
+          />
+        )}
+
+        {watermarkImgDataUrl === "" ? null : (
+          <img
+            src={watermarkImgDataUrl}
+            alt="watermark image"
+            onLoad={(e) => {
+              onWatermarkImageLoaded(e)
+            }}
+          />
+        )}
       </div>
     </Style>
   )
