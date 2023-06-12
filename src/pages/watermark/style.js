@@ -40,8 +40,8 @@ const Style = styled.div`
 
   .image-info {
     position: fixed;
-    top: 50px;
-    right: 5px;
+    top: 80px;
+    right: 20px;
   }
 `
 export default Style
