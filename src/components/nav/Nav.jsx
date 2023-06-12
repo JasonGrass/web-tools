@@ -1,12 +1,11 @@
-import classNames from "classnames"
-
 import React, { memo } from "react"
 import { NavLink } from "react-router-dom"
 
+import classNames from "classnames"
+
 import Style from "./style"
 
-const navClassnames = ({ isActive }) =>
-  classNames({ "nav-active": isActive }, "nav-link")
+const navClassnames = ({ isActive }) => classNames({ "nav-active": isActive }, "nav-link")
 
 const Nav = memo(() => {
   return (

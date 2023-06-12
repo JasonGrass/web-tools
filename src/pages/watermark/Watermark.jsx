@@ -1,12 +1,13 @@
+import React, { memo, useEffect, useRef, useState } from "react"
+
 import Toastify from "toastify-js"
 import "toastify-js/src/toastify.css"
 
-import React, { memo, useEffect, useRef, useState } from "react"
+import ImageInfo from "@/components/image-info/ImageInfo"
+import ImageInput from "@/components/image-input/ImageInput"
+import { calcFileSize, writeToClipboard } from "@/tools/imageHelper"
+import useLocalForage from "@/tools/useLocalForage"
 
-import ImageInfo from "../../components/image-info/ImageInfo"
-import ImageInput from "../../components/image-input/ImageInput"
-import { calcFileSize, writeToClipboard } from "../../tools/imageHelper"
-import useLocalForage from "../../tools/useLocalForage"
 import { createWatermark } from "./helper"
 import Style from "./style"
 
