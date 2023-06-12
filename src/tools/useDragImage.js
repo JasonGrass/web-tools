@@ -7,30 +7,10 @@ export const useDragImage = (dropBoxRef, callback) => {
     if (!dropBox) {
       return
     }
-    // document.body.style.cursor = "default"
 
     dropBox.ondragenter = ignoreDrag // 拖动文件的鼠标指针位置放置区之上时发生
     dropBox.ondragover = ignoreDrag
     dropBox.ondrop = drop
-
-    // function onMouseOver(event) {
-    //   console.log(event)
-    //   if (event.buttons === 1) {
-    //     document.body.style.cursor = "move"
-    //   }
-    // }
-
-    // function onMouseLeave() {
-    //   document.body.style.cursor = "default"
-    // }
-
-    // dropBox.addEventListener("mouseover", onMouseOver)
-    // dropBox.addEventListener("mouseleave", onMouseLeave)
-
-    // return () => {
-    //   dropBox.removeEventListener("mouseover", onMouseOver)
-    //   dropBox.removeEventListener("mouseleave", onMouseLeave)
-    // }
   })
 
   function ignoreDrag(e) {

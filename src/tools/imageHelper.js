@@ -8,6 +8,9 @@ function calcFileSize(dataUrl) {
   return fileLength
 }
 
+/**
+ * 将图片保存到剪贴板
+ */
 async function writeToClipboard(dataUrl) {
   const item = new ClipboardItem({
     "image/png": b64toBlob(dataUrl, "image/png", 512)
