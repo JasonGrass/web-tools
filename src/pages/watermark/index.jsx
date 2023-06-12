@@ -1,3 +1,6 @@
+import Toastify from "toastify-js"
+import "toastify-js/src/toastify.css"
+
 import React, { memo, useEffect, useRef, useState } from "react"
 
 import ImageInfo from "../../components/image-info/ImageInfo"
@@ -66,7 +69,15 @@ const Watermark = memo(() => {
     setWatermarkImgDataUrl(url)
     setWatermarkImgFileSize(calcFileSize(url))
 
-    writeToClipboard(url)
+    if (await writeToClipboard(url)) {
+      Toastify({
+        text: "new image copied to clipboard",
+        duration: 3000,
+        gravity: "top",
+        position: "right"
+      }).showToast()
+    }
+
     setText(text)
   }
 

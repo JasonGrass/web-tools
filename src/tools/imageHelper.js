@@ -8,18 +8,18 @@ function calcFileSize(dataUrl) {
   return fileLength
 }
 
-function writeToClipboard(dataUrl) {
+async function writeToClipboard(dataUrl) {
   const item = new ClipboardItem({
     "image/png": b64toBlob(dataUrl, "image/png", 512)
   })
-  navigator.clipboard.write([item]).then(
-    function () {
-      /* success */
-    },
-    function (e) {
-      console.error("保存图片到剪贴板失败", e)
-    }
-  )
+
+  try {
+    await navigator.clipboard.write([item])
+    return true
+  } catch (error) {
+    console.error("保存图片到剪贴板失败", error)
+    return false
+  }
 }
 
 /** base64转Blob */
