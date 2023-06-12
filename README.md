@@ -4,7 +4,7 @@
 
 为图片添加来源水印
 
-[https://tools.jgrass.xyz](https://tools.jgrass.xyz)
+<https://tools.jgrass.xyz>{:target="_blank"}
 
 ### TODO
 
