@@ -6,6 +6,12 @@
 
 <https://tools.jgrass.xyz>{:target="_blank"}
 
+[https://tools.jgrass.xyz](https://tools.jgrass.xyz){:target="_blank"}
+
+<a href="https://tools.jgrass.xyz" target="_blank" rel="noopener noreferrer">
+https://tools.jgrass.xyz
+</a>
+
 ### TODO
 
 - [ ] 本地保存水印文字历史记录，支持管理
