@@ -1,5 +1,5 @@
 module.exports = {
-  printWidth: 120,
+  printWidth: 100,
   tabWidth: 2,
   useTabs: false,
   semi: false,
@@ -7,13 +7,7 @@ module.exports = {
   trailingComma: "none",
   bracketSpacing: true,
   bracketSameLine: true,
-  importOrder: [
-    "^react(.*)",
-    "antd/(.*)",
-    "<THIRD_PARTY_MODULES> ",
-    "@/(.*)",
-    "^[./]"
-  ],
+  importOrder: ["^react(.*)", "antd/(.*)", "<THIRD_PARTY_MODULES> ", "@/(.*)", "^[./]"],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true
 }

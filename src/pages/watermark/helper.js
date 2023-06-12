@@ -8,9 +8,7 @@ async function createWatermark({ dataUrl, width, height, text }) {
     const size = await getImageSize(originImgElement)
     width = size.width
     height = size.height
-    console.log(
-      `[createWatermark] get size from origin image; width: ${width}; height: ${height} `
-    )
+    console.log(`[createWatermark] get size from origin image; width: ${width}; height: ${height} `)
   }
 
   if (width <= 0 || height <= 0) {
@@ -43,13 +41,16 @@ async function createWatermark({ dataUrl, width, height, text }) {
     resolve(canvas)
   })
 
-  //  使用 canvas.toBlob 转成最终图像
-  const newImgUrl = await new Promise((resolve) => {
-    canvas.toBlob((canvasBlob) => {
-      const url = URL.createObjectURL(canvasBlob)
-      resolve(url)
-    })
-  })
+  // //  使用 canvas.toBlob 转成最终图像
+  // const newImgUrl = await new Promise((resolve) => {
+  //   canvas.toBlob((canvasBlob) => {
+  //     const url = URL.createObjectURL(canvasBlob)
+  //     resolve(url)
+  //   })
+  // })
+
+  // const newImgUrl = canvas.toDataURL("image/png", 0.5)
+  const newImgUrl = canvas.toDataURL()
 
   return {
     url: newImgUrl,

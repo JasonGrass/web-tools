@@ -1,13 +1,17 @@
 import React, { memo, useEffect, useRef, useState } from "react"
 
+import ImageInfo from "../../components/image-info/ImageInfo"
 import ImageInput from "../../components/image-input/ImageInput"
+import { calcFileSize } from "../../tools/imageHelper"
 import useLocalForage from "../../tools/useLocalForage"
 import { createWatermark } from "./helper"
 import Style from "./style"
 
 const Watermark = memo(() => {
   const [originImgDataUrl, setOriginImgDataUrl] = useState("")
+  const [originImgFileSize, setOriginImgFileSize] = useState(0)
   const [watermarkImgDataUrl, setWatermarkImgDataUrl] = useState("")
+  const [watermarkImgFileSize, setWatermarkImgFileSize] = useState(0)
 
   const [watermark, setWatermark] = useState("")
 
@@ -24,8 +28,9 @@ const Watermark = memo(() => {
     })
   }, [])
 
-  function onInputImageChanged(dataUrl) {
-    setOriginImgDataUrl(dataUrl)
+  function onInputImageChanged(imageDataUrl) {
+    setOriginImgDataUrl(imageDataUrl)
+    setOriginImgFileSize(calcFileSize(imageDataUrl))
   }
 
   function onOriginImageLoaded(e) {
@@ -59,6 +64,8 @@ const Watermark = memo(() => {
       text
     })
     setWatermarkImgDataUrl(url)
+    setWatermarkImgFileSize(calcFileSize(url))
+
     setText(text)
   }
 
@@ -73,6 +80,18 @@ const Watermark = memo(() => {
           onChange={(e) => onWatermarkTextChanged(e)}
           placeholder="watermark text"></input>
       </div>
+
+      {watermarkImgDataUrl === "" ? null : (
+        <div className="image-info">
+          <ImageInfo
+            oldWidth={imgWidth}
+            oldHeight={imgHeight}
+            oldSize={originImgFileSize}
+            newWidth={imgWidth}
+            newHeight={imgHeight}
+            newSize={watermarkImgFileSize}></ImageInfo>
+        </div>
+      )}
 
       <div className="image-container">
         {originImgDataUrl === "" ? null : (

@@ -37,5 +37,11 @@ const Style = styled.div`
       max-width: 48%;
     }
   }
+
+  .image-info {
+    position: fixed;
+    top: 50px;
+    right: 5px;
+  }
 `
 export default Style
