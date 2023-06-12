@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from "react"
 
 import ImageInput from "../../components/image-input/ImageInput"
+import useLocalForage from "../../tools/useLocalForage"
 import { createWatermark } from "./helper"
 import Style from "./style"
 
@@ -12,6 +13,17 @@ const Watermark = memo(() => {
 
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
+
+  const { getItem: getText, setItem: setText } =
+    useLocalForage("watermark-text")
+
+  useEffect(() => {
+    getText().then((text) => {
+      if (text) {
+        setWatermark(text)
+      }
+    })
+  }, [])
 
   function onInputImageChanged(dataUrl) {
     setOriginImgDataUrl(dataUrl)
@@ -53,6 +65,7 @@ const Watermark = memo(() => {
       text
     })
     setWatermarkImgDataUrl(url)
+    setText(text)
   }
 
   return (
