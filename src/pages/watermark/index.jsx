@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef, useState } from "react"
 
 import ImageInfo from "../../components/image-info/ImageInfo"
 import ImageInput from "../../components/image-input/ImageInput"
-import { calcFileSize } from "../../tools/imageHelper"
+import { calcFileSize, writeToClipboard } from "../../tools/imageHelper"
 import useLocalForage from "../../tools/useLocalForage"
 import { createWatermark } from "./helper"
 import Style from "./style"
@@ -66,6 +66,7 @@ const Watermark = memo(() => {
     setWatermarkImgDataUrl(url)
     setWatermarkImgFileSize(calcFileSize(url))
 
+    writeToClipboard(url)
     setText(text)
   }
 
