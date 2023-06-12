@@ -3,26 +3,27 @@ import styled from "styled-components"
 const Style = styled.div`
   margin: 5px;
 
-  .image-infos {
-    display: flex;
-    justify-content: center;
-
-    margin: 10px 0;
-
-    font-size: 18px;
-  }
-
-  .image-info-box {
+  .image-watermark-box {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    & > * {
-      margin-bottom: 5px;
-    }
+    margin: 8px 0;
 
     & > input {
-      width: 600px;
+      width: 800px;
+      outline-style: none;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 700;
+
+      &:focus {
+        border-color: #66afe9;
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 4px rgba(102, 175, 233, 0.6);
+      }
     }
   }
 

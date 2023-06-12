@@ -14,8 +14,7 @@ const Watermark = memo(() => {
   const [imgWidth, setImgWidth] = useState(0)
   const [imgHeight, setImgHeight] = useState(0)
 
-  const { getItem: getText, setItem: setText } =
-    useLocalForage("watermark-text")
+  const { getItem: getText, setItem: setText } = useLocalForage("watermark-text")
 
   useEffect(() => {
     getText().then((text) => {
@@ -33,12 +32,7 @@ const Watermark = memo(() => {
     const img = e.target
     setImgWidth(img.naturalWidth)
     setImgHeight(img.naturalHeight)
-    createWatermarkImage(
-      originImgDataUrl,
-      img.naturalWidth,
-      img.naturalHeight,
-      watermark
-    )
+    createWatermarkImage(originImgDataUrl, img.naturalWidth, img.naturalHeight, watermark)
   }
 
   function onWatermarkImageLoaded(e) {
@@ -72,17 +66,12 @@ const Watermark = memo(() => {
     <Style>
       <ImageInput onImageChanged={onInputImageChanged}></ImageInput>
 
-      <div className="image-infos">
-        <div className="image-info-box">
-          <span>
-            Size: {imgWidth} x {imgHeight}
-          </span>
-          <input
-            type="text"
-            value={watermark}
-            onChange={(e) => onWatermarkTextChanged(e)}
-            placeholder="watermark text"></input>
-        </div>
+      <div className="image-watermark-box">
+        <input
+          type="text"
+          value={watermark}
+          onChange={(e) => onWatermarkTextChanged(e)}
+          placeholder="watermark text"></input>
       </div>
 
       <div className="image-container">

@@ -41,11 +41,7 @@ const ImageInput = memo(({ onImageChanged }) => {
           <span>2 将图片拖进框内</span>
           <span>
             3 从资源管理器选择文件
-            <input
-              type="file"
-              id="fileInput"
-              onChange={(e) => onFileInput(e)}
-            />
+            <input type="file" id="fileInput" onChange={(e) => onFileInput(e)} />
           </span>
         </div>
       </div>
@@ -64,7 +60,7 @@ const Style = styled.div`
     justify-content: center;
     align-items: center;
 
-    height: 160px;
+    height: 140px;
     background-color: aliceblue;
     border: 3px dashed #aaa;
     border-radius: 10px;
