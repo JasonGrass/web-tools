@@ -4,13 +4,8 @@
 
 为图片添加来源水印
 
-<https://tools.jgrass.xyz>{:target="_blank"}
+<https://tools.jgrass.xyz>
 
-[https://tools.jgrass.xyz](https://tools.jgrass.xyz){:target="_blank"}
-
-<a href="https://tools.jgrass.xyz" target="_blank" rel="noopener noreferrer">
-https://tools.jgrass.xyz
-</a>
 
 ### TODO
 
