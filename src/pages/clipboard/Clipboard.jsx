@@ -7,19 +7,23 @@ const Clipboard = memo(() => {
   const [items, setItems] = useState([])
   const [message, setMessage] = useState("")
 
+  const currentTime = () => {
+    return new Date().toLocaleTimeString()
+  }
+
   const onReadButtonClick = async () => {
     try {
       const clipboardItems = await navigator.clipboard.read()
       if (!clipboardItems || clipboardItems.length === 0) {
-        setMessage("No items in clipboard")
+        setMessage(`No items in clipboard (${currentTime()})`)
         setItems([])
       } else {
-        setMessage(`${clipboardItems.length} clipboardItem in clipboard`)
+        setMessage(`${clipboardItems.length} clipboardItem in clipboard (${currentTime()})`)
         setItems(clipboardItems)
       }
     } catch (err) {
       console.error(err.name, err.message)
-      setMessage(`ERROR: ${err.message}`)
+      setMessage(`ERROR: ${err.message} (${currentTime()})`)
       setItems([])
     }
   }
