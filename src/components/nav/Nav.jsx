@@ -14,6 +14,9 @@ const Nav = memo(() => {
         <NavLink className={navClassnames} to="watermark">
           水印
         </NavLink>
+        <NavLink className={navClassnames} to="clipboard">
+          剪贴板
+        </NavLink>
         <NavLink className={navClassnames} to="about">
           关于
         </NavLink>
