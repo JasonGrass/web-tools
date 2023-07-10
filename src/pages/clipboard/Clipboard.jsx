@@ -14,22 +14,25 @@ const Clipboard = memo(() => {
         setMessage("No items in clipboard")
         setItems([])
       } else {
-        setMessage(`${clipboardItems.length} items in clipboard`)
+        setMessage(`${clipboardItems.length} clipboardItem in clipboard`)
         setItems(clipboardItems)
       }
     } catch (err) {
       console.error(err.name, err.message)
-      setMessage(`ERROR ${err.message}`)
+      setMessage(`ERROR: ${err.message}`)
       setItems([])
     }
   }
 
   return (
     <Style>
-      <input type="button" onClick={(e) => onReadButtonClick()} value="Read Clipboard"></input>
-
-      <h2>{message}</h2>
-
+      <input
+        type="button"
+        className="read-clipboard-button"
+        onClick={(e) => onReadButtonClick()}
+        value="Read Clipboard"></input>
+      <span className="read-clipboard-message">{message}</span>
+      <hr />
       {items.map((item, index) => buildClipboardItemView(item, index))}
     </Style>
   )

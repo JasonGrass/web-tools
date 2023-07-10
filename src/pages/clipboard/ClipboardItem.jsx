@@ -5,15 +5,19 @@ const ClipboardItem = memo(({ clipboardItem }) => {
   const { types } = clipboardItem
 
   return (
-    <div>
-      {types.map((t) => {
-        return (
-          <span className="type-label" key={t}>
-            {t}
-          </span>
-        )
-      })}
+    <div className="clipboard-item">
+      {/*  MIME type 标签 */}
+      <div className="type-labels">
+        {types.map((t) => {
+          return (
+            <code className="type-label" key={t}>
+              {t}
+            </code>
+          )
+        })}
+      </div>
 
+      {/* 具体内容 */}
       {types.map((t) => {
         return (
           <div key={t}>
@@ -25,6 +29,7 @@ const ClipboardItem = memo(({ clipboardItem }) => {
   )
 })
 
+// ClipboardItem 内容展示
 const ClipboardTypeItem = memo(({ type, item }) => {
   const [itemBlob, setItemBlob] = useState(null)
 
@@ -47,11 +52,13 @@ const ClipboardTypeItem = memo(({ type, item }) => {
   }
 
   const unknown = `UNKNOWN TYPE: ${type}`
-
-  return <div>{unknown}</div>
+  return (
+    <ClipBoardTextItem title={unknown} type={type} blob={itemBlob} item={item}></ClipBoardTextItem>
+  )
 })
 
-const ClipBoardTextItem = memo(({ type, blob, item }) => {
+// 文本内容
+const ClipBoardTextItem = memo(({ title, type, blob, item }) => {
   const [text, setText] = useState(null)
   useEffect(() => {
     const resolveBlob = async () => {
@@ -60,16 +67,37 @@ const ClipBoardTextItem = memo(({ type, blob, item }) => {
     resolveBlob()
   }, [blob])
 
-  return <p>{text}</p>
+  return (
+    <ClipboardItemContainer title={title} type={type}>
+      <p>{text}</p>
+    </ClipboardItemContainer>
+  )
 })
 
+// 图片内容
 const ClipboardImageItem = memo(({ type, blob, item }) => {
   const [image, setImage] = useState(null)
   useEffect(() => {
     setImage(URL.createObjectURL(blob))
   }, [blob])
 
-  return <img src={image} />
+  return (
+    <ClipboardItemContainer type={type}>
+      <img className="item-content-image" src={image} />
+    </ClipboardItemContainer>
+  )
 })
+
+const ClipboardItemContainer = ({ title, type, children }) => {
+  return (
+    <div className="item-container">
+      <div className="item-header">
+        <span className="item-title">{title}</span>
+        <span className="item-type">{type}</span>
+      </div>
+      <div className="item-content">{children}</div>
+    </div>
+  )
+}
 
 export default ClipboardItem
