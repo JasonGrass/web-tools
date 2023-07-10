@@ -1,6 +1,6 @@
 # web-tools
 
-## 功能
+## 🍉 功能 1 图片水印
 
 为图片添加简单的来源水印，特点：
 
@@ -9,6 +9,21 @@
   没有多余操作，直接在页面 `Ctrl + V` 粘贴图片（如果图片在剪切板中），然后处理之后的图片，会自动写入到剪贴板。在使用的地方再 `Ctrl + V` 即可。
 
 因为会覆盖剪贴板内容，建议配合剪贴板历史管理工具使用（Windows 自带：Win+V）
+
+### TODO
+
+- [ ] 支持调整水印位置，文字大小，颜色和阴影颜色（添加几种预设快速设置）
+- [ ] 本地保存水印文字历史记录，支持管理
+- [ ] 配置管理：默认样式，是否自动写入到剪贴板等
+
+## 🍉 功能 2 读取剪贴板数据
+
+列出 web 可以读取到的剪贴板数据
+
+[剪贴板操作 Clipboard API 教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2021/01/clipboard-api.html )
+[Clipboard API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API )
+
+Windows 类似工具：[walterlv/ClipboardViewer: This is a tool for you to view the clipboard of Windows.](https://github.com/walterlv/ClipboardViewer )
 
 ## 开发
 
@@ -20,11 +35,8 @@
 
 使用 <https://vercel.com> 部署。
 
-## TODO
+## 项目 TODO
 
-- [ ] 支持调整水印位置，文字大小，颜色和阴影颜色（添加几种预设快速设置）
-- [ ] 本地保存水印文字历史记录，支持管理
-- [ ] 配置管理：默认样式，是否自动写入到剪贴板等
 - [ ] 界面优化
 - [ ] 功能优化：1 react 路由缓存（keep-alive）2 修改后端，使用 browser route。
 
