@@ -63,7 +63,7 @@ const ExtensionLangHelper = memo(() => {
       await navigator.clipboard.write([item])
       return true
     } catch (error) {
-      console.error("保存图片到剪贴板失败", error)
+      console.error("保存到剪贴板失败", error)
       return false
     }
   }
@@ -76,7 +76,7 @@ const ExtensionLangHelper = memo(() => {
 
   return (
     <Style>
-      <h2>Chrome Extension Lang Build Helper</h2>
+      <h2>Chrome Extension Language Helper（Chrome 扩展开发多语言辅助工具）</h2>
       <button onClick={onClear} id="btn-clear">
         Clear
       </button>
@@ -84,18 +84,30 @@ const ExtensionLangHelper = memo(() => {
       <input type="text" id="lang-key" value={langKey} onChange={onKeyChange} />
       <div>
         <label htmlFor="lang-key">zh: </label>
-        <input type="text" id="lang-value-zh" value={langValueZh} onChange={onZhValueChange} />
+        <textarea
+          type="text"
+          id="lang-value-zh"
+          rows={3}
+          value={langValueZh}
+          onChange={onZhValueChange}
+        />
       </div>
       <div>
         <label htmlFor="lang-key">en: </label>
-        <input type="text" id="lang-value-en" value={langValueEn} onChange={onEnValueChange} />
+        <textarea
+          type="text"
+          id="lang-value-en"
+          rows={3}
+          value={langValueEn}
+          onChange={onEnValueChange}
+        />
       </div>
 
-      <div>
+      <div className="result">
         <p>{resultZh}</p>
         <button onClick={onZhCopy}>Copy</button>
       </div>
-      <div>
+      <div className="result">
         <p>{resultEn}</p>
         <button onClick={onEnCopy}>Copy</button>
       </div>
@@ -132,5 +144,14 @@ const Style = styled.div`
   #lang-value-zh,
   #lang-value-en {
     width: 800px;
+  }
+
+  .result {
+    margin-left: 55px;
+
+    button {
+      width: 80px;
+      height: 24px;
+    }
   }
 `

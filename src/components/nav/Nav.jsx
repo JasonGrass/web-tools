@@ -16,6 +16,9 @@ const Nav = memo(() => {
         </NavLink>
         <NavLink className={navClassnames} to="clipboard">
           剪贴板
+        </NavLink>{" "}
+        <NavLink className={navClassnames} to="dev-extension-lang">
+          Chrome
         </NavLink>
         <NavLink className={navClassnames} to="about">
           关于
