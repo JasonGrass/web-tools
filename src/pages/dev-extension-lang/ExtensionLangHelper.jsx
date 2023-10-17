@@ -6,8 +6,11 @@ const ExtensionLangHelper = memo(() => {
   const [langKey, setLangKey] = useState("")
   const [langValueEn, setLangValueEn] = useState("")
   const [langValueZh, setLangValueZh] = useState("")
+  const [langValueJa, setLangValueJa] = useState("")
+
   const [resultEn, setResultEn] = useState("")
   const [resultZh, setResultZh] = useState("")
+  const [resultJa, setResultJa] = useState("")
 
   const onKeyChange = (e) => {
     setLangKey(e.target.value)
@@ -19,6 +22,10 @@ const ExtensionLangHelper = memo(() => {
 
   const onZhValueChange = (e) => {
     setLangValueZh(e.target.value)
+  }
+
+  const onJaValueChange = (e) => {
+    setLangValueJa(e.target.value)
   }
 
   const format = (obj) => {
@@ -42,7 +49,15 @@ const ExtensionLangHelper = memo(() => {
         }
       })
     )
-  }, [langKey, langValueEn, langValueZh])
+
+    setResultJa(
+      format({
+        [langKey]: {
+          message: langValueJa
+        }
+      })
+    )
+  }, [langKey, langValueEn, langValueZh, langValueJa])
 
   const onZhCopy = async () => {
     await writeToClipboard(`"${langKey}"`)
@@ -52,6 +67,11 @@ const ExtensionLangHelper = memo(() => {
   const onEnCopy = async () => {
     await writeToClipboard(`"${langKey}"`)
     await writeToClipboard(resultEn + ",")
+  }
+
+  const onJaCopy = async () => {
+    await writeToClipboard(`"${langKey}"`)
+    await writeToClipboard(resultJa + ",")
   }
 
   async function writeToClipboard(json) {
@@ -83,23 +103,36 @@ const ExtensionLangHelper = memo(() => {
       <label htmlFor="lang-key">Key: </label>
       <input type="text" id="lang-key" value={langKey} onChange={onKeyChange} />
       <div>
-        <label htmlFor="lang-key">zh: </label>
+        <label>zh: </label>
         <textarea
           type="text"
           id="lang-value-zh"
+          className="lang-value-text"
           rows={3}
           value={langValueZh}
           onChange={onZhValueChange}
         />
       </div>
       <div>
-        <label htmlFor="lang-key">en: </label>
+        <label>en: </label>
         <textarea
           type="text"
           id="lang-value-en"
+          className="lang-value-text"
           rows={3}
           value={langValueEn}
           onChange={onEnValueChange}
+        />
+      </div>
+      <div>
+        <label>ja: </label>
+        <textarea
+          type="text"
+          id="lang-value-ja"
+          className="lang-value-text"
+          rows={3}
+          value={langValueJa}
+          onChange={onJaValueChange}
         />
       </div>
 
@@ -110,6 +143,10 @@ const ExtensionLangHelper = memo(() => {
       <div className="result">
         <p>{resultEn}</p>
         <button onClick={onEnCopy}>Copy</button>
+      </div>
+      <div className="result">
+        <p>{resultJa}</p>
+        <button onClick={onJaCopy}>Copy</button>
       </div>
     </Style>
   )
@@ -134,16 +171,14 @@ const Style = styled.div`
     text-align: right;
   }
 
-  #lang-key,
-  #lang-value-zh,
-  #lang-value-en {
-    width: 300px;
+  .lang-value-text {
+    width: 800px;
     margin: 5px 0;
   }
 
-  #lang-value-zh,
-  #lang-value-en {
-    width: 800px;
+  #lang-key {
+    width: 300px;
+    margin: 5px 0;
   }
 
   .result {
